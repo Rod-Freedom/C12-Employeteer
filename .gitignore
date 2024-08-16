@@ -8,3 +8,7 @@ node_modules/
 # env
 **/.env
 .env
+
+# SQLs
+**/*.sql
+*.sql
