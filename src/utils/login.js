@@ -164,7 +164,7 @@ export default async () => {
         );
 
         await client.connect();
-        await client.end();
+        client.end();
 
     } catch (err) {
         const { message } = err;

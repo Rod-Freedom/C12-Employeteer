@@ -1,5 +1,7 @@
 export default class Insert {
     static employee (values) {
+        const database = 'employees';
+
         const valuesStringified = JSON.stringify(values)
             .replaceAll(']', ')')
             .replaceAll('[', '(')
@@ -7,12 +9,17 @@ export default class Insert {
             .replaceAll('((', '(')
             .replaceAll('))', ')')
         ;
-        const command = `INSERT INTO employees (first_name, last_name, email, title, department, salary, manager_id) VALUES ${valuesStringified}`;
+
+        const columns = ['first_name', 'last_name', 'email', 'title', 'department', 'salary', 'manager_id'].join(', ');
+
+        const command = `INSERT INTO ${database} (${columns}) VALUES ${valuesStringified}`;
         
         return command;
     }
     
     static department (values) {
+        const database = 'departments';
+        
         const valuesStringified = JSON.stringify(values)
             .replaceAll(']', ')')
             .replaceAll('[', '(')
@@ -20,8 +27,10 @@ export default class Insert {
             .replaceAll('((', '(')
             .replaceAll('))', ')')
         ;
-        const command = `INSERT INTO departments (name) VALUES ${valuesStringified}`;
-        console.log(command)
+
+        const columns = 'name';
+
+        const command = `INSERT INTO ${database} (${columns}) VALUES ${valuesStringified}`;
 
         return command;
     }
