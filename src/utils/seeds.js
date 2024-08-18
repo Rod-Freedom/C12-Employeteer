@@ -3,7 +3,7 @@ import Table from "./table.js";
 import Insert from "./insert.js";
 import { createSpinner } from 'nanospinner';
 
-const { Pool, Client } = pg;
+const { Client } = pg;
 
 const departmentsSeeds = [['Sales'], ['Engineering'], ['Finance'], ['Legal']];
 
@@ -43,9 +43,9 @@ export default async () => {
         await client.query(insertEmpl);
         
         spinnerTables.success();
-
+        client.end();
 
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
 };
