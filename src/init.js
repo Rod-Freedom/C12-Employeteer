@@ -5,10 +5,8 @@ import menu from "./menu.js";
 
 export default async () => {
     try {
-        figlet(`Employeteer |X| `, (err, logo) => {
-            if (err) throw new Error(err.message)
-            else return console.log(`${logo}\n\n\n`)
-        });
+        const logo = await figlet(`Employeteer |X| `);
+        console.log(`${logo}\n\n\n`);
         await login();
         await menu();
     } catch (err) {

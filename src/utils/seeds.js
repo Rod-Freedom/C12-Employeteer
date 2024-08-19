@@ -15,7 +15,9 @@ const employeeSeeds = [
     ['Emmanuel', 'Macron', 'emmanuel@avecvous.com', 'Account Manager', 3, 160000, null],
     ['Justin', 'Trudeau', 'justin@chooseforward.com', 'Accountant', 3, 125000, 5],
     ['Vlad', 'Putin', 'vlad@togetherstrong.com', 'Legal Team Lead', 4, 250000, null],
-    ['Benji', 'Netan', 'benji@totalvictory.com', 'Lawyer', 4, 250000, 7]
+    ['Benji', 'Netan', 'benji@totalvictory.com', 'Lawyer', 4, 250000, 7],
+    ['Andy', 'Obrador', 'andy@jhh.com', 'sales', 1, 85000, 1],
+    ['Kam', 'Harris', 'kam@notgoingback.com', 'Data Engineer', 2, 120000, 3]
 ];
 
 export default async () => {

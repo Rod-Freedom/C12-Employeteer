@@ -32,7 +32,7 @@ export default class View {
         const joinRel = 'employees.department = departments.id';
         const groupBy = 'departments.name';
 
-        const command = `SELECT ${columns} FROM ${table} JOIN ${join} ON ${joinRel} GROUP BY ${groupBy}`;
+        const command = `SELECT ${columns} FROM ${table} LEFT JOIN ${join} ON ${joinRel} GROUP BY ${groupBy}`;
 
         return command;
     }
@@ -117,6 +117,51 @@ export default class View {
         const where = `employees.manager_id = ${mngrID}`;
 
         const command = `SELECT ${columns} FROM ${table} LEFT JOIN ${joinOne} AS ${joinOneAlias} ON ${joinOneRel} JOIN ${joinTwo} ON ${joinTwoRel} WHERE ${where}`;
+
+        return command;
+    }
+    
+    static employee (id) {
+        const table = 'employees';
+        const columns = '*';
+        const where = `id = ${id}`;
+
+        const command = `SELECT ${columns} FROM ${table} WHERE ${where}`;
+
+        return command;
+    }
+
+    static employeesLength () {
+        const table = 'employees';
+        const columns = `id`;
+
+        const command = `SELECT count(${columns}) FROM ${table}`;
+
+        return command;
+    }
+    
+    static departmentsLength () {
+        const table = 'departments';
+        const columns = `*`;
+
+        const command = `SELECT count(${columns}) FROM ${table}`;
+
+        return command;
+    }
+    
+    static salaries () {
+        const table = 'employees';
+        const columns = [
+            `departments.name AS department`,
+            `sum(employees.salary) AS salary_expenses`
+        ].join(', ');
+        const join = 'departments';
+        const joinRel = 'employees.department = departments.id';
+        const groupBy = 'departments.name';
+        const orderBy = 'salary_expenses';
+
+
+        const command = `SELECT ${columns} FROM ${table} JOIN ${join} ON ${joinRel} GROUP BY ${groupBy} ORDER BY ${orderBy} DESC`;
 
         return command;
     }
