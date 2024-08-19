@@ -6,7 +6,7 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 import pg from "pg";
 
-const { Pool, Client } = pg;
+const { Client } = pg;
 const { prompt } = inquirer;
 let client;
 
@@ -63,9 +63,10 @@ const promptForUser = async () => {
         }
     });
     
+    console.log(chalk.italic('Welcome! You need to set your user first.'))
     const { user } = await prompt(userPrompt);
     const password = await promptPassword();
-    const testDB = 'postgres'
+    const testDB = 'postgres';
 
     try {
         client = new Client(
@@ -132,6 +133,8 @@ const checkDefaultDB = async (defaultDB = 'postgres') => {
 
         await client.end();
         await createDB();
+        console.log(chalk.italic(`All set! Please restart Employeteer!\n\n`));
+        process.exit();
 
     } catch (err) {
         const { message } = err;

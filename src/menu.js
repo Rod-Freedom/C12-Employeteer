@@ -1,29 +1,16 @@
 import inquirer from "inquirer";
 import PSQL from "./utils/psql.js";
+import { 
+    Menu,
+    EditEmplPrompt,
+    AddDeptPrompt,
+    EditDeptPrompt
+} from "./utils/prompts.js";
+import chalk from "chalk";
 
 const { prompt } = inquirer;
 
-const menuOptions = {
-    type: 'list',
-    message: 'Select an option employeteer!',
-    choices: [
-        'List all employees',
-        'List all departments',
-        'List all managers',
-        'Employees by department',
-        'Employees by manager',
-        'Add employee',
-        'Edit employee',
-        'Delete employee',
-        'Add department',
-        'Edit department',
-        'Delete department',
-        'List salaries',
-        'Quit'
-    ],
-    name: 'option',
-    loop: false
-};
+const menuOptions = new Menu();
 
 const continueFunc = async () => {
     const continuePrompt = {
@@ -49,8 +36,9 @@ const continueFunc = async () => {
 };
 
 const menuFunc = async () => {
-
     try {
+        const deptsPrompt = await PSQL.getDeptsPrompt();
+        const confirmEmps = await PSQL.verifyEmployees();
         const { option } = await prompt(menuOptions);
         
         switch (option) {
@@ -64,7 +52,6 @@ const menuFunc = async () => {
                 await PSQL.allManagers();
                 break;
             case 'Employees by department':
-                const deptsPrompt = await PSQL.getDeptsPrompt();
                 const { deptID } = await prompt(deptsPrompt);
                 await PSQL.byDepartment(deptID);
                 break;
@@ -79,24 +66,53 @@ const menuFunc = async () => {
                 await PSQL.addEmployee(emplVals);
                 break;
             case 'Edit employee':
+                if (!confirmEmps) break;
+                const editID = await PSQL.verifyEmployee();
+                const editEmplPrompt = new EditEmplPrompt();
+                const { cols } = await prompt(editEmplPrompt);
+
+                for (let i = 0; i < cols.length; i++) {
+                    const col = cols[i];
+
+                    const editEmployeeColPrompt = await PSQL.getEditEmployeeColPrompt(col);
+                    const res = await prompt(editEmployeeColPrompt);
+                    const newVal = col === 'department' ? res.deptID : res.newVal;
+                    await PSQL.editEmployee(editID, col, newVal);
+                    
+                    if (i === (cols.length - 1)) console.log(`\n\n${chalk.italic('Employee edited')}\n\n`)
+                }
                 break;
             case 'Delete employee':
+                if (!confirmEmps) break;
+                const delEmpID = await PSQL.verifyEmployee();
+                await PSQL.deleteEmployee(delEmpID);
                 break;
             case 'Add department':
+                const addDeptPrompt = new AddDeptPrompt();
+                const newDept = await prompt(addDeptPrompt);
+                await PSQL.addDepartment(newDept);
                 break;
             case 'Edit department':
+                const deptIDRes = await prompt(deptsPrompt);
+                const deptName = await prompt(new EditDeptPrompt());
+                await PSQL.editDepartment(deptIDRes, deptName);
                 break;
             case 'Delete department':
+                const confirmDepts = await PSQL.verifyDepartments();
+                if (!confirmDepts) break;
+                const delDepID = await prompt(deptsPrompt);
+                await PSQL.deleteDepartment(delDepID);
                 break;
-            case 'List salaries':
+            case 'Salary expenses by department':
+                await PSQL.depsSalaries();
                 break;
             case 'Quit':
                 return;
         }
 
         await continueFunc();
-    }
-    catch (err) { return }
+    
+    } catch (err) { console.log(err) }
 };
 
 export default async () => {

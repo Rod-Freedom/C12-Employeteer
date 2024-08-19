@@ -23,7 +23,7 @@ export default class Table {
             'salary INTEGER',
             'department INTEGER',
             'manager_id INTEGER',
-            'FOREIGN KEY (department) REFERENCES departments(id) ON DELETE SET NULL',
+            'FOREIGN KEY (department) REFERENCES departments(id)',
             'FOREIGN KEY (manager_id) REFERENCES employees(id) ON DELETE SET NULL'
         ].join(', ');
         const uniques = 'email';
