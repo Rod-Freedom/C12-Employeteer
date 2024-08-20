@@ -93,8 +93,9 @@ export default class View {
         const join = 'employees';
         const joinAlias = 'managers';
         const joinRel = 'employees.manager_id = managers.id';
+        const groupBy = 'managers.id';
         
-        const command = `SELECT ${columns} FROM ${table} INNER JOIN ${join} AS ${joinAlias} ON ${joinRel}`;
+        const command = `SELECT ${columns} FROM ${table} INNER JOIN ${join} AS ${joinAlias} ON ${joinRel} GROUP BY ${groupBy}`;
 
         return command;
     }

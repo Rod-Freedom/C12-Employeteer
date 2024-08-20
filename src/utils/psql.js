@@ -215,7 +215,6 @@ export default class PSQL {
     static async editEmployee (empID, col, val) {
         if (val === 0) val = null
         const command = Update.employee(empID, col, val);
-        console.log(command)
 
         try {
             await pool.query(command);
