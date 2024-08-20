@@ -19,7 +19,8 @@ Be the masterhand of your employees databases.
 
 Welcome to ***Employeteer***, the ultimate Node.js application designed to simplify the management of employee databases without the need for any SQL expertise. With Employeteer, you can effortlessly oversee your workforce data with an intuitive, user-friendly interface that puts you in full control.
 
-*Find the repo [here](https://github.com/Rod-Freedom/C12-Employeteer).*
+*Find the repo [**here**](https://github.com/Rod-Freedom/C12-Employeteer).* <br>
+*Watch our tutorial [**here**](https://youtu.be/0QQmfUgFack).*
 
 <br>
 <br>
@@ -78,7 +79,7 @@ Welcome to ***Employeteer***, the ultimate Node.js application designed to simpl
 [(Back to the Top)](#about-the-project)
 
 ## Get Started
-*Watch our tutorial [here](https://youtu.be/KGUw7XCQuS4?feature=shared)!*
+*Watch our tutorial [**here**](https://youtu.be/0QQmfUgFack).*
 
 Once you have the repo on your computer after running `git clone`, open your command line. Make sure to open the Logo Smith repo folder in your terminal. Use `npm i` to install all the modules needed to run *Employeteer*.
 
@@ -100,6 +101,7 @@ $ npm i
 [(Back to the Top)](#about-the-project)
 
 ## Usage
+*Watch our tutorial [**here**](https://youtu.be/0QQmfUgFack).*
 
 ***Employeteer*** is easy and intuitive to use. To run it, open the Employeteer folder in your terminal, then type `node index.js` or `npm start` and hit `enter`.
 ```bash
